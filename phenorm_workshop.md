@@ -50,7 +50,7 @@ source(here("data/get_workshop_data.R"))
 # Load data
 
 We will extract the data from i2b2demodata instance at MGB and store at
-as an R dataset for purposes of this demo. See workshop_data.sql script
+as an R data set for purposes of this demo. See workshop_data.sql script
 for the SQL query used to extract data. The code below runs a function
 that retrieves the data from the database if it doesn’t already exist
 locally.
@@ -75,14 +75,14 @@ head(d)
     ## 5  1000000008      M               20     189         35        1             0
     ## 6  1000000087      M               52     119         10        0             0
 
-The dataset contains a patient id (patient_num), sex, age, and 4 EHR
+The data set contains a patient id (patient_num), sex, age, and 4 EHR
 variables: num_enc is the number of healthcare encounters, num_asthma is
 the number of asthma diagnosis, num_copd is the number of diagnosis for
 COPD and num_albuterol is the count of albuterol drug prescriptions or
 dispenses. We will utilize these 4 EHR variables to run the PheNorm
 procedure.
 
-Let’s look at a scatterplot of num_enc and num_asthma:
+Let’s look at a scatter plot of num_enc and num_asthma:
 
 ``` r
 plot(d$num_enc, d$num_asthma,
@@ -100,7 +100,7 @@ abline(lm(num_asthma ~ num_enc, data = d), col = "red", lwd = 2)
 
 An important step is the need to log-transform all of the input
 variables prior to running the method. This step is required to shift
-our count variables into a gaussian (normal) distribution required for
+our count variables into a Gaussian (normal) distribution required for
 our approach.
 
 ``` r
@@ -169,7 +169,7 @@ head(d_transformed)
     ## 5     0.0000000 0.983217406
     ## 6     0.0000000 0.005425310
 
-We’ve run PheNorm and added the results to our dataframe. PheNorm
+We’ve run PheNorm and added the results to our data frame. PheNorm
 returns a probability (0..1) with the estimated probability of the
 patient having the medical condition.
 
@@ -195,9 +195,9 @@ rug(d_transformed$PheNorm, col = "gray")
 
 # Gold standard evaluation
 
-Although this approach is unsupervised it is still necessary to evaluate
-our results against some gold standard (typically from a clinician chart
-review).  
+Although this approach is unsupervised, it is still necessary to
+evaluate our results against some gold standard (typically from a
+clinician chart review).  
 Here we’ll classify 22 patients as ‘No asthma’ and set the remaining
 patients to ‘Yes asthma’. To compute specificity, sensitivity, and
 positive predicted value (PPV), we’ll set patients with a
@@ -254,8 +254,17 @@ cat(paste0(
 
 In this tutorial, we’ve run Phenorm on fake EHR data and evaluated the
 results. The steps in this notebook are generally the steps used to
-generate the computed phenotypes in the RPDR. Read more about the RPDR
+generate the computed phenotypes in the RPDR. Read more about RPDR
 computed phenotypes at <https://phenotypes.partners.org>.
+
+The Phenorm paper in JAMIA describes the method in much more detail. The
+full citation is:
+
+Yu S, Ma Y, Gronsbell J, Cai T, Ananthakrishnan AN, Gainer VS, Churchill
+SE, Szolovits P, Murphy SN, Kohane IS, Liao KP, Cai T. Enabling
+phenotypic big data with PheNorm. J Am Med Inform Assoc. 2018 Jan
+1;25(1):54-60. doi: 10.1093/jamia/ocx111. PMID: 29126253; PMCID:
+PMC6251688. <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6251688/>
 
 Feel free to reach out via email at <vcastro@mgb.org> with any
 questions.
