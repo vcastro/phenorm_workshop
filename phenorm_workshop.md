@@ -94,7 +94,7 @@ plot(d$num_enc, d$num_asthma,
 abline(lm(num_asthma ~ num_enc, data = d), col = "red", lwd = 2)
 ```
 
-![](figs/fig-unnamed-chunk-1-1.png)<!-- -->
+![](figs/fig-scatter-1.png)<!-- -->
 
 # Transform the data
 

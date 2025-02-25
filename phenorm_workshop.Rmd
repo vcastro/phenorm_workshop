@@ -79,7 +79,7 @@ procedure.
 
 Let's look at a scatterplot of num_enc and num_asthma:
 
-```{r}
+```{r scatter}
 plot(d$num_enc, d$num_asthma,
      xlab = "Number of Encounters",
      ylab = "Number of Asthma ICD codes",
